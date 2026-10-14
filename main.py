@@ -1,9 +1,10 @@
-"""Ejecutar desde la raíz: python main.py."""
+"""Punto de entrada: ejecuta el sistema desde la raíz con ``python main.py``."""
 import argparse
-from gestion.sistema import Sistema
+from modelos.sistema import Sistema
+
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Gestión de proyectos — preliminar UPC')
-    parser.add_argument('--datos', default='datos/catalogos.json', help='Ruta del archivo de catálogos')
+    parser = argparse.ArgumentParser(description='Gestión de proyectos — sistema académico FP2 (UPC)')
+    parser.add_argument('--datos', default='datos', help='Directorio de los archivos JSON de persistencia')
     args = parser.parse_args()
     raise SystemExit(Sistema(args.datos).iniciar())

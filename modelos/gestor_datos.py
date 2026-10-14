@@ -309,8 +309,15 @@ class GestorDatos:
         if asignacion.empleado not in self.empleados:
             raise ValueError('Debe registrar primero al empleado.')
         if asignacion.proyecto not in self.proyectos:
-            raise ValueError('Debe registrar primero al proyecto.')
-        self._registrar(self.asignaciones, asignacion)
+            raise ValueError('Debe registrar primero el proyecto.')
+        if any(a.empleado is asignacion.empleado
+               and a.proyecto is asignacion.proyecto
+               and a.semana == asignacion.semana
+               for a in self.asignaciones):
+            raise ValueError(
+                'Ya existe una asignación para ese empleado, proyecto y semana.'
+            )
+        self.asignaciones.append(asignacion)
 
     def buscar_asignacion(self, empleado_codigo, proyecto_codigo, semana):
         return next((a for a in self.asignaciones
